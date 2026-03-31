@@ -1,0 +1,10 @@
+{{/* data/hscode.csv 파일의 데이터를 한 줄씩 읽어 페이지로 만드는 논리 회로 */}}
+{{ range $index, $row := site.Data.hscode }}
+  {{ $.AddPage (dict
+    "path" $row.id
+    "kind" "page"
+    "type" "hscode"
+    "title" (printf "HS Code %s" $row.hs_code)
+    "params" $row
+  ) }}
+{{ end }}
