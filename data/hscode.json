@@ -1,0 +1,26 @@
+[
+  {
+    "id": "1",
+    "hs_code": "8517120000",
+    "description": "Smartphones",
+    "base_rate": 0.0,
+    "vat_rate": 10.0,
+    "country": "US"
+  },
+  {
+    "id": "2",
+    "hs_code": "6109100000",
+    "description": "T-shirts",
+    "base_rate": 13.0,
+    "vat_rate": 10.0,
+    "country": "US"
+  },
+  {
+    "id": "3",
+    "hs_code": "0901210000",
+    "description": "Roasted Coffee",
+    "base_rate": 0.0,
+    "vat_rate": 0.0,
+    "country": "US"
+  }
+]
