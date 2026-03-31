@@ -1,16 +1,56 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>HS Code Profit Engine - Data Radar</title>
+    <title>HS Code Profit Engine - 10x Quantum Core</title>
+    <script>
+        // [10x 혁신 공정] 서버의 원자재(JSON)를 브라우저 메모리로 즉시 주입
+        const rawData = {{ .Site.Data.hscode | jsonify | safeJS }};
+
+        // 데이터를 UI에 즉시 결합하는 삼투압 함수
+        function loadCalculator(itemKey) {
+            const item = rawData[itemKey];
+            const displayZone = document.getElementById('calc-display');
+            
+            // 데이터 구조를 분석하여 계산기 UI 렌더링 (현재는 데이터 검증용 뼈대)
+            displayZone.innerHTML = `
+                <div style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                    <h2 style="color: #2c3e50; margin-top: 0;">가동 확인: HS Code 엔진 </h2>
+                    <pre style="background: #1e1e1e; color: #00ff00; padding: 20px; border-radius: 8px; overflow-x: auto;">
+${JSON.stringify(item, null, 2)}
+                    </pre>
+                    <hr style="margin: 20px 0; border: 1px solid #eee;">
+                    <button style="background: #e74c3c; color: white; border: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; cursor: pointer;">
+                        이곳에 마진율 계산 로직이 연결될 예정입니다
+                    </button>
+                </div>
+            `;
+        }
+    </script>
 </head>
-<body style="font-family: sans-serif; padding: 20px;">
-    <h1>System Radar: 원자재(JSON) 직결 테스트</h1>
-    <ul style="background: #f4f4f4; padding: 20px; border-radius: 8px;">
-    {{ if .Site.Data.hscode }}
-        <li style="color: green; font-weight: bold;">✅ 데이터 로드 성공 (데이터가 존재합니다)</li>
-    {{ else }}
-        <li style="color: red; font-weight: bold;">❌ 치명적 오류: data/hscode.json 파일을 찾을 수 없습니다!</li>
-    {{ end }}
-    </ul>
+<body style="font-family: -apple-system, sans-serif; margin: 0; display: flex; height: 100vh; background: #f8f9fa;">
+
+    <div style="width: 30%; height: 100%; overflow-y: scroll; background: #ffffff; border-right: 1px solid #ddd; padding: 20px; box-sizing: border-box;">
+        <h3 style="color: #333;">터미널 패널</h3>
+        <p style="font-size: 0.9em; color: #666;">항목을 클릭하여 렌더링 엔진을 가동하십시오.</p>
+        <ul style="list-style: none; padding: 0;">
+        {{ range $key, $value := .Site.Data.hscode }}
+            <li style="margin-bottom: 8px; background: #3498db; color: white; padding: 12px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.2s;" 
+                onclick="loadCalculator('{{ $key }}')"
+                onmouseover="this.style.background='#2980b9'" 
+                onmouseout="this.style.background='#3498db'">
+                ⚡ {{ $key }} (데이터 로드)
+            </li>
+        {{ end }}
+        </ul>
+    </div>
+
+    <div style="width: 70%; padding: 40px; box-sizing: border-box; display: flex; align-items: center; justify-content: center;" id="calc-display">
+        <div style="text-align: center; color: #aaa;">
+            <h1 style="font-size: 3em; margin: 0;">⚙️</h1>
+            <h2>엔진 대기 중...</h2>
+            <p>좌측 패널에서 데이터를 선택하여 퀀텀 코어를 점화하십시오.</p>
+        </div>
+    </div>
+
 </body>
 </html>
