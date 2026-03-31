@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>HS Code Profit Engine - Radar</title>
+    <title>HS Code Profit Engine - Data Radar</title>
 </head>
 <body style="font-family: sans-serif; padding: 20px;">
-    <h1>System Radar: 파이프라인 가동 상태</h1>
-    <p>기계가 성공적으로 찍어낸 B2C 웹페이지 목록입니다. 아래 링크를 클릭하세요:</p>
+    <h1>System Radar: 원자재(JSON) 직결 테스트</h1>
+    <p>아래에 데이터가 텍스트로 뜬다면, JSON 파일은 완벽하나 '페이지 변환 공정'만 빠진 것입니다.</p>
 
-    <ul>
-    {{ range .Site.RegularPages }}
+    <ul style="background: #f4f4f4; padding: 20px; border-radius: 8px;">
+    {{ if .Site.Data.hscode }}
+        {{ range $index, $element := .Site.Data.hscode }}
         <li style="margin-bottom: 10px;">
-            <a href="{{ .RelPermalink }}" style="font-size: 1.2em; color: blue; text-decoration: none;">
-                ✅ {{ .Title }}
-            </a> 
-            <br><small style="color: gray;">(생성된 물리적 경로: {{ .RelPermalink }})</small>
+            <span style="font-size: 1.2em; color: green; font-weight: bold;">
+                ✅ 데이터 로드 성공: {{ $element }}
+            </span>
+        </li>
+        {{ end }}
+    {{ else }}
+        <li style="color: red; font-weight: bold; font-size: 1.2em;">
+            ❌ 치명적 오류: data/hscode.json 파일을 읽을 수 없습니다! (파일이 없거나 내부 JSON 문법이 깨졌습니다)
         </li>
     {{ end }}
     </ul>
-
-    <hr>
-    <p>※ 만약 위 목록에 아무것도 뜨지 않는다면, 데이터 변환 엔진이 작동하지 않은 것입니다.</p>
 </body>
 </html>
