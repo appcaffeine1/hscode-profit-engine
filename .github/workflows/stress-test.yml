@@ -1,0 +1,35 @@
+name: "Physical Stress Test: 100K Nodes"
+
+on:
+  workflow_dispatch: # 수동으로 버튼을 눌러 실행
+
+jobs:
+  stress-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Step 0: Checkout Repository"
+        uses: actions/checkout@v4
+
+      - name: "Step 1: Setup Python"
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: "Step 2: Setup Hugo"
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: 'latest'
+          extended: true
+
+      - name: "Step 3: Generate 100K Dummy Data"
+        run: |
+          echo "🚀 Starting data generation..."
+          time python generate_stress_data.py
+          echo "✅ Generation complete. Checking disk usage:"
+          du -sh content/hs-code/dummy
+
+      - name: "Step 4: Execute Hugo Build (The Real Test)"
+        run: |
+          echo "🔥 Starting Hugo build. Monitoring RAM/CPU..."
+          # --gc: 가비지 컬렉션 실행, --minify: 실제 운영 환경과 동일한 압축 부하
+          time hugo --gc --minify
