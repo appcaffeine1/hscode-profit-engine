@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="{{- site.LanguageCode -}}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{- .Title -}} | 글로벌 관세 자동 계산기</title>
+  
+  {{- partialCached "seo/json-ld.html" . .RelPermalink -}}
+</head>
+<body>
+  <main>
+    <article>
+      <h1>{{- .Title -}}</h1>
+      <div class="content">
+        {{- .Content -}}
+      </div>
+      
+      {{- partial "calculator.html" . -}}
+    </article>
+  </main>
+</body>
+</html>
