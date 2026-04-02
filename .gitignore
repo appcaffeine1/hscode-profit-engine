@@ -1,1 +1,10 @@
-content/hs-code/dummy/
+# 엔진 및 바이너리 찌꺼기
+*.exe
+.hugo_build.lock
+resources/
+
+# 🚀 10만 개 타설 원유 (절대 업로드 금지 구역)
+/content/calculator/
+
+# 🚀 HTML 완제품 (절대 업로드 금지 구역)
+/public/
